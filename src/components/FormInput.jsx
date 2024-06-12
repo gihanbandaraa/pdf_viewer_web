@@ -11,7 +11,7 @@ const FormInput = ({ value, onChange, placeholder, type = "text" }) => {
   const inputType = type === "password" && isShowPassword ? "text" : type;
 
   return (
-    <div className="flex items-center bg-transparent border-[1.5px] px-5 rounded mb-3">
+    <div className="flex w-[100%]  items-center bg-transparent border-[1.5px] px-5 rounded mb-3">
       <input
         value={value}
         onChange={onChange}

@@ -12,6 +12,14 @@
     background-color: #fdfeff;
     overflow-x: hidden;
   }
+  .shadow-text::before {
+    content: attr(data-shadow);
+    position: absolute;
+    left: 5px;  /* Adjust the horizontal offset */
+    top: 5px;   /* Adjust the vertical offset */
+    color: rgba(0, 0, 0, 0.3); /* Shadow color */
+    z-index: -1;
+  }
 }
 @layer components {
   .input-box{
@@ -27,4 +35,5 @@
   .input-label{
     @apply text-xs text-slate-400
   }
+  
 }
