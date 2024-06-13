@@ -1,8 +1,6 @@
 import React from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
-import testPdf from "/images/enrollement.pdf";
-
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
   import.meta.url,
@@ -17,7 +15,6 @@ const PdfModal = ({ pdf, onClose }) => {
 
   const onDocumentLoadError = (error) => {
     console.error("Error loading document:", error);
-    // Additional error handling logic can be added here
   };
 
   if (!pdf) return null;

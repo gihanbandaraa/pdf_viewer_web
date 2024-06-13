@@ -88,11 +88,10 @@ app.post(
   }
 );
 
-// GET endpoint to fetch all uploaded PDFs
+//get-pdf-id
 app.get("/pdfs", authenticateToken, async (req, res) => {
   try {
-    const userId = req.user.user._id; // Get the current user's ID from the token
-
+    const userId = req.user.user._id;
     const pdfs = await Pdf.find({ uploadedBy: userId }).populate(
       "uploadedBy",
       "fullName email"
@@ -161,23 +160,26 @@ app.post("/create-account", async (req, res) => {
 });
 
 app.delete("/delete-pdf/:id", authenticateToken, async (req, res) => {
-  const userId = req.user.user._id; // Get user ID from authenticated token
-  const pdfId = req.params.id; // Get PDF ID from request parameters
+  const userId = req.user.user._id;
+  const pdfId = req.params.id;
 
   try {
-    // Check if the PDF exists and is uploaded by the current user
     const pdf = await Pdf.findOne({ _id: pdfId, uploadedBy: userId });
 
     if (!pdf) {
-      return res.status(404).json({ error: true, message: "PDF not found or you are not authorized to delete it." });
+      return res.status(404).json({
+        error: true,
+        message: "PDF not found or you are not authorized to delete it.",
+      });
     }
 
-    // Delete the PDF document from MongoDB
     await Pdf.findByIdAndDelete(pdfId);
 
-    // Optionally, delete the physical file from storage using fs.unlinkSync(pdf.path);
+    fs.unlinkSync(pdf.path);
 
-    res.status(200).json({ error: false, message: "PDF deleted successfully." });
+    res
+      .status(200)
+      .json({ error: false, message: "PDF deleted successfully." });
   } catch (error) {
     console.error("Error deleting PDF:", error);
     res.status(500).json({ error: true, message: "Failed to delete PDF." });

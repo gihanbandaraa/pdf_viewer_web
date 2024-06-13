@@ -1,9 +1,9 @@
 import React from "react";
-import { RiDeleteBinLine } from "react-icons/ri"; // Import delete icon from react-icons
+import { RiDeleteBinLine } from "react-icons/ri"; 
 
 const PdfCard = ({ pdf, onView, onDelete }) => {
   const handleDelete = () => {
-    onDelete(pdf); // Pass the pdf object to the onDelete function
+    onDelete(pdf); 
   };
 
   return (
