@@ -3,6 +3,7 @@ import CustomButton from "../../components/CustomButton";
 import FormInput from "../../components/FormInput";
 import { useState } from "react";
 import axiosInstance from "../../utils/axiosinstance";
+import { validateEmail } from "../../utils/helper"; 
 
 const SignUp = () => {
   const [password, setPassword] = useState("");
@@ -38,7 +39,7 @@ const SignUp = () => {
         password: password,
       });
 
-      //Handle successful Registration response
+
       if (response.data && response.data.accessToken) {
         setError(response.data.message);
       }
@@ -47,7 +48,7 @@ const SignUp = () => {
         navigate("/dashboard");
       }
     } catch (error) {
-      //Handle Error
+ 
       if (
         error.response &&
         error.response.data &&
@@ -55,7 +56,7 @@ const SignUp = () => {
       ) {
         setError(error.response.data.message);
       } else {
-        setError("An unexpected error occurred.Please Try again");
+        setError("An unexpected error occurred. Please try again");
       }
     }
   };
@@ -64,26 +65,27 @@ const SignUp = () => {
     <div className="flex justify-center items-center w-full h-screen bg-gray-100">
       <div className="flex justify-center items-center w-full h-full bg-white shadow-lg rounded-lg">
         <div className="flex w-full h-full">
-          <div class="flex flex-col justify-center items-center w-1/2 p-10  text-black max-md:hidden">
-            <img src="/images/pdfread.png" />
-            <h1 class="text-4xl font-bold">PDF Reader</h1>
-            <p class="mt-5 text-xl">Enhance your reading experience.</p>
-            <p class="mt-2">Access your documents seamlessly.</p>
+          <div className="flex flex-col justify-center items-center w-1/2 p-10 text-black max-md:hidden">
+            <img src="/images/pdfread.png" alt="PDF Reader"/>
+            <h1 className="text-4xl font-bold">PDF Reader</h1>
+            <p className="mt-5 text-xl">Enhance your reading experience.</p>
+            <p className="mt-2">Access your documents seamlessly.</p>
           </div>
 
           <div className="flex flex-col justify-center items-center w-1/2 p-10 max-md:w-screen">
             <h2 className="text-3xl font-bold mb-6">Create a new account</h2>
-            <div className="flex gap-4 mb-4 w-full  justify-center ">
+            <div className="flex gap-4 mb-4 w-full justify-center ">
               <button className="py-2 px-10 w-max-15 rounded border flex gap-2">
-                <img src="/images/facebook.png" width={24} height={24} />
+                <img src="/images/facebook.png" width={24} height={24} alt="Facebook"/>
                 <p>Facebook</p>
               </button>
-              <button className=" py-2 px-10  rounded border flex gap-2">
-                <img src="/images/google.png" width={24} height={24} />
+              <button className="py-2 px-10 rounded border flex gap-2">
+                <img src="/images/google.png" width={24} height={24} alt="Google"/>
                 <p>Google</p>
               </button>
             </div>
             <p className="mb-4">or continue with email</p>
+
             <form onSubmit={handleSignUp}>
               <FormInput
                 value={username}
@@ -115,6 +117,7 @@ const SignUp = () => {
               </div>
               <CustomButton label="Sign Up" fullWidth type="submit" />
             </form>
+
             <p className="mt-4">
               Already Have an Account?{" "}
               <Link to="/login" className="font-medium text-blue-500 underline">

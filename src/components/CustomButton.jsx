@@ -7,13 +7,13 @@ const CustomButton = ({
   borderColor,
   textColor,
   fullWidth,
-  type = "button", // default to "button" if no type is provided
-  onClick, // Add onClick prop
+  type = "button",
+  onClick, 
 }) => {
   return (
     <button
       type={type}
-      onClick={onClick} // Use onClick prop
+      onClick={onClick} 
       className={`flex justify-center items-center gap-2 px-7 py-4 border font-poppins text-lg leading-none ${
         backgroundColor ? `${backgroundColor} ${textColor} ${borderColor}` : "bg-black text-white"
       } rounded-full ${fullWidth ? 'w-full' : ''} hover:bg-white hover:text-black border-black hover:ease-in duration-300`}
