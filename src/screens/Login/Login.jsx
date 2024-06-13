@@ -1,14 +1,58 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FormInput from "../../components/FormInput";
 import CustomButton from "../../components/CustomButton";
 import { useState } from "react";
+import axiosInstance from "../../utils/axiosinstance";
+import { validateEmail } from "../../utils/helper";
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    if (!password) {
+      setError("Please enter password");
+      return;
+    }
+    setError("");
+
+    //Login API Call
+    try {
+      const response = await axiosInstance.post("/login", {
+        email: email,
+        password: password,
+      });
+
+      //Handle successful login response
+      if (response.data && response.data.accessToken) {
+        localStorage.setItem("token", response.data.accessToken);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      //Handle Error
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message);
+      } else {
+        setError("An unexpected error occurred.Please Try again");
+      }
+    }
+  };
 
   return (
-    
     <div className="flex justify-center items-center w-full h-screen bg-gray-100">
       <div className="flex justify-center items-center w-full h-full bg-white shadow-lg rounded-lg">
         <div className="flex w-full h-full">
@@ -25,32 +69,38 @@ const Login = () => {
               </button>
             </div>
             <p className="mb-4">or continue with email</p>
-         
-            <FormInput
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              type="text"
-            />
-            <FormInput
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              type="password"
-            />
-            <div className="flex items-center justify-between w-full mt-4 mb-6 gap-9">
-              <label className="flex items-center">
-                <input type="checkbox" className="mr-2" />
-                Remember me
-              </label>
-              <Link to="/forgot-password" className="text-blue-500">
-                Forgot Password?
-              </Link>
-            </div>
-            <CustomButton label="Sign In" fullWidth />
+
+            <form onSubmit={handleLogin}>
+              <FormInput
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                type="text"
+              />
+              <FormInput
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                type="password"
+              />
+               {error && <p className="text-red-500 text-xs pb-1">{error}</p>}
+              <div className="flex items-center justify-between w-full mt-4 mb-6 gap-9">
+                <label className="flex items-center">
+                  <input type="checkbox" className="mr-2" />
+                  Remember me
+                </label>
+                <Link to="/forgot-password" className="text-blue-500">
+                  Forgot Password?
+                </Link>
+              </div>
+              <CustomButton label="Sign In" fullWidth type="submit"/>
+            </form>
             <p className="mt-4">
-             Didn't Have an Account?{" "}
-              <Link to="/signUp" className="font-medium text-blue-500 underline">
+              Didn't Have an Account?{" "}
+              <Link
+                to="/signUp"
+                className="font-medium text-blue-500 underline"
+              >
                 sign up here
               </Link>
             </p>

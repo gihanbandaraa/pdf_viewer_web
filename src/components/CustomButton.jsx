@@ -6,15 +6,17 @@ const CustomButton = ({
   backgroundColor,
   borderColor,
   textColor,
-  fullWidth
+  fullWidth,
+  type = "button",
+  onClick, 
 }) => {
   return (
     <button
-      className={`flex justify-center items-center gap-2 px-7 py-4 border font-poppins text-lg leading-none  ${
-        backgroundColor
-          ? `${backgroundColor} ${textColor} ${borderColor}`
-          : "bg-black text-white"
-      } rounded-full ${fullWidth ? 'w-full' : ''} hover:bg-white hover:text-black border-black hover:ease-in duration-300 `}
+      type={type}
+      onClick={onClick} 
+      className={`flex justify-center items-center gap-2 px-7 py-4 border font-poppins text-lg leading-none ${
+        backgroundColor ? `${backgroundColor} ${textColor} ${borderColor}` : "bg-black text-white"
+      } rounded-full ${fullWidth ? 'w-full' : ''} hover:bg-white hover:text-black border-black hover:ease-in duration-300`}
     >
       {label}
       {iconUrl && (
