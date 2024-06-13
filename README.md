@@ -1,8 +1,33 @@
-# React + Vite
+# PDF Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Node.js and React application for managing PDF files with JWT authentication.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Upload PDF files securely.
+- View uploaded PDF files.
+- Delete uploaded PDF files.
+- User authentication using JWT tokens.
+
+## Technologies Used
+
+- Node.js
+- Express.js
+- MongoDB (mongoose)
+- React
+- JWT (JSON Web Tokens)
+- Multer (for file uploads)
+
+## Getting Started
+
+1. Clone the repository:
+- git clone https://github.com/Gihan1329/pdf_viewer_web/
+- cd pdf_viewer_web
+- npm install
+- cd backend
+- npm install
+## Start the server and client
+- npm run dev
+- cd backend
+- npm start
+
